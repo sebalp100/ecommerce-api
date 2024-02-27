@@ -52,14 +52,13 @@ router.get("/", async (req, res) => {
   const qCategory = req.query.category;
   try {
     let products;
+    const categoriesArray = qCategory.split(',');
 
     if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(1);
     } else if (qCategory) {
       products = await Product.find({
-        categories: {
-          $in: [qCategory],
-        },
+        categories: { $regex: qCategory, $options: 'i' }
       });
     } else {
       products = await Product.find();
