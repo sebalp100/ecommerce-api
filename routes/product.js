@@ -52,7 +52,6 @@ router.get("/", async (req, res) => {
   const qCategory = req.query.category;
   try {
     let products;
-    const categoriesArray = qCategory.split(',');
 
     if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(1);
